@@ -41,7 +41,8 @@ export class LoginComponent {
       this.auth.login(this.loginForm.value).subscribe({
         next: (res=>{
           this.toast.success({detail:"SUCCESS",summary:res.message,duration:3000});
-          this.loginForm.reset();
+          this.loginForm.reset();          
+          this.auth.storeToken(res.token);
           this.router.navigate(['dashboard']);
         }),
         error: (err=>{
