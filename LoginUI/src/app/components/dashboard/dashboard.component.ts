@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {AuthService} from './../../services/auth.service';
+import {ApiService} from './../../services/api.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -7,11 +8,23 @@ import {AuthService} from './../../services/auth.service';
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent {
-  constructor(private auth : AuthService){
 
+  public users : any = [];
+
+  constructor(private auth : AuthService, private api : ApiService){
+
+  }
+
+  ngOnInit(){
+    this.api.getUsers().
+    subscribe(x => {
+      this.users = x; 
+    })
   }
 
   logOut(){
     this.auth.logout();
   }
+
+
 }
